@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Models/Human/Idle.anim" type="Animation" id=1]
 [ext_resource path="res://Models/Human/Hook.anim" type="Animation" id=2]
 [ext_resource path="res://Models/Human/Run.anim" type="Animation" id=3]
 [ext_resource path="res://Models/Human/HumanMesh.mesh" type="ArrayMesh" id=4]
+[ext_resource path="res://Models/Human/Human.gd" type="Script" id=5]
 
 [sub_resource type="Skin" id=1]
 resource_name = "Skin"
@@ -34,6 +35,9 @@ radius = 0.204996
 height = 1.29137
 
 [node name="Human" type="KinematicBody"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource( 5 )
 
 [node name="Skeleton" type="Skeleton" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.54911, 0 )
