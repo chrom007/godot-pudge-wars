@@ -1,7 +1,7 @@
 extends Spatial
 
 const CAM_FOV_MAX = 90;
-const CAM_FOV_MIN = 30;
+const CAM_FOV_MIN = 25;
 const CAM_MARGIN = 30;
 const CAM_SPEED = 10;
 const RAY_LENGTH = 100;

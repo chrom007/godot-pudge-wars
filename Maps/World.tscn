@@ -1,8 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Models/Floor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Models/Human.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Maps/World.gd" type="Script" id=3]
+
+[sub_resource type="GIProbeData" id=1]
+bounds = AABB( -11.7207, -2.39797, -11.2872, 23.4415, 4.79595, 22.5744 )
+cell_size = 0.183136
+to_cell_xform = Transform( 5.46041, 0, 0, 0, 5.46041, 0, 0, 0, 5.46041, 64, 13.0939, 61.6329 )
+dynamic_data = PoolIntArray( 0, 8, 128, 32, 128, 1, 0, 0, 0, 1094713344, 0, 0, 7, 0, 1, 4018, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+dynamic_range = 4
+energy = 0.5
+bias = 1.733
+normal_bias = 0.0
+propagation = 0.61
 
 [node name="World" type="Spatial"]
 script = ExtResource( 3 )
@@ -17,6 +28,17 @@ transform = Transform( 1, 0, 0, 0, 0.607043, 0.794669, 0, -0.794669, 0.607043, 0
 current = true
 
 [node name="Light" type="DirectionalLight" parent="."]
-transform = Transform( 0.480822, -0.599598, 0.639759, -0.0186911, 0.722463, 0.691157, -0.876619, -0.344282, 0.336169, 0, 6.20329, 0 )
-light_energy = 0.5
+transform = Transform( 0.480822, -0.599598, 0.63976, -0.0186911, 0.722463, 0.691157, -0.876619, -0.344281, 0.336169, -7.98499, 6.20329, 0 )
+light_energy = 0.1
+light_indirect_energy = 0.66
 shadow_enabled = true
+
+[node name="GIProbe" type="GIProbe" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89844, 0 )
+visible = false
+extents = Vector3( 11.7207, 2.39797, 11.2872 )
+dynamic_range = 8
+energy = 0.5
+propagation = 0.61
+bias = 1.733
+data = SubResource( 1 )
