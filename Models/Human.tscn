@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Models/Human/Idle.anim" type="Animation" id=1]
 [ext_resource path="res://Models/Human/Hook.anim" type="Animation" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Models/Human/Human.gd" type="Script" id=5]
 [ext_resource path="res://Models/Hook/chain.png" type="Texture" id=6]
 [ext_resource path="res://Models/Hook.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Models/Human/Target.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Skin" id=1]
 resource_name = "Skin"
@@ -129,4 +130,7 @@ region_rect = Rect2( 0, 0, 100, 150 )
 
 [node name="Hook" parent="." instance=ExtResource( 7 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0.0948866, 0.802274, -0.407189 )
+visible = false
+
+[node name="Target" parent="." instance=ExtResource( 8 )]
 visible = false

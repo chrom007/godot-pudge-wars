@@ -38,6 +38,10 @@ func _input(event):
 
 			if (target):
 				$Human.move_to(target.position);
+				$Target.show();
+				$Target.transform.origin = target.position;
+				$Target/AnimationPlayer.play("Anim", 0, 2);
+				$Target/AnimationPlayer.seek(0, true);
 
 		if (event.button_index == BUTTON_WHEEL_DOWN):
 			cam_fov += 1;
