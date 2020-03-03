@@ -16,8 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="PudgeWars"
-run/main_scene="res://Maps/World.tscn"
+run/main_scene="res://Maps/Menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Network="*res://Network.gd"
 
 [display]
 
@@ -1088,6 +1092,10 @@ scene={
 3d_physics/layer_3="units"
 3d_render/layer_4="gui"
 3d_physics/layer_4="gui"
+
+[locale]
+
+locale_filter=[ 0, [  ] ]
 
 [rendering]
 

@@ -36,6 +36,9 @@ func _input(event):
 			var ray_end = ray_start + $Camera.project_ray_normal(mouse) * RAY_LENGTH;
 			var target = get_world().direct_space_state.intersect_ray(ray_start, ray_end, [], 1);
 
+			if (Network.connected):
+				return rpc_id(1, "move_to", target.position);
+
 			if (target):
 				$Human.move_to(target.position);
 				$Target.show();
