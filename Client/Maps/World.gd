@@ -11,9 +11,18 @@ var cam_fov = 70;
 var cam_inter = Vector3(0, 0, 0);
 var cam_inter_lerp = 0;
 
+func human_remove(id):
+	get_node("/root/World/Players/" + String(id)).queue_free();
+
 func _ready():
-	OS.window_fullscreen = false;
-	pass;
+	#OS.window_fullscreen = false;
+	Network.connect("player_disconnect", self, "human_remove");
+
+	for id in Network.players:
+		var player : KinematicBody = load("res://Models/Human.tscn").instance();
+		player.set_network_master(1);
+		player.set_name(String(id));
+		$Players.add_child(player);
 
 
 func _process(delta):
@@ -36,10 +45,10 @@ func _input(event):
 			var ray_end = ray_start + $Camera.project_ray_normal(mouse) * RAY_LENGTH;
 			var target = get_world().direct_space_state.intersect_ray(ray_start, ray_end, [], 1);
 
-			if (Network.connected):
-				return rpc_id(1, "move_to", target.position);
 
 			if (target):
+				if (Network.connected):
+					return rpc_id(1, "human_move", target.position);
 				$Human.move_to(target.position);
 				$Target.show();
 				$Target.transform.origin = target.position;

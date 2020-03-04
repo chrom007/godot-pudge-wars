@@ -2,6 +2,9 @@ extends Node
 
 signal player_disconnect;
 
+# 0.0166 - 60 ticks
+# 0.0333 - 30 ticks
+const tickrate = 0.0166;
 const MAX_PLAYERS = 10;
 const PORT = 6464;
 
@@ -35,10 +38,10 @@ remote func join_game(nick):
 	var id = get_tree().get_rpc_sender_id();
 	players[id] = nick;
 
-	if (players.size() >= 1):
+	if (players.size() >= 2):
 		game_started = true;
 		print("Game started");
-		rpc("game_start");
+		rpc("game_start", players);
 		get_tree().change_scene("res://World.tscn");
 
 

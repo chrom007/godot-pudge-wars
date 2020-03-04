@@ -4,6 +4,8 @@ func _ready():
 	#Network.connect()
 	pass;
 
-func update_position(_transform):
-	transform = _transform;
+puppet func update_position(_transform, _rotation):
+	transform.origin = _transform;
+	rotation_degrees = _rotation;
+	print("update_position", _transform, _rotation);
 	pass;
