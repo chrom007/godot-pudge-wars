@@ -13,8 +13,10 @@ var move = false;
 var hook_throw = false;
 
 func move_to(_target):
-	target = _target;
-	move = true;
+	if (!hook_throw):
+		move = true;
+		target = _target;
+		rpc("set_target", target);
 
 func _physics_process(delta):
 	delta_tick += delta;
@@ -37,10 +39,31 @@ func _physics_process(delta):
 		if (transform.origin.distance_to(target) < 0.175):
 			target = Vector3();
 			velocity = Vector3();
-			rpc("animation", "idle");
+			rpc("anim", "idle");
+			update_position();
 			move = false;
 
 
-func update_position():
-	rpc_unreliable("update_position", transform.origin, rotation_degrees);
-	pass;
+remote func hook():
+	if (!hook_throw):
+		hook_throw = true;
+		move = false;
+		velocity = Vector3();
+		update_position();
+		rpc("hook_throw_start");
+		$Hook.start_move();
+		$Hook.show();
+
+func hook_back():
+	$Hook.hide();
+	hook_throw = false;
+	rpc("anim", "idle");
+
+
+func update_position(force = false):
+	if (force):
+		rpc_unreliable("update_position", transform.origin, rotation_degrees, velocity, true);
+	else:
+		rpc_unreliable("update_position", transform.origin, rotation_degrees, velocity);
+
+

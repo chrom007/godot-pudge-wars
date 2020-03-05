@@ -23,6 +23,17 @@ config/icon="res://icon.png"
 
 Network="*res://Network.gd"
 
+[layer_names]
+
+3d_render/layer_1="world"
+3d_physics/layer_1="world"
+3d_render/layer_2="buildings"
+3d_physics/layer_2="buildings"
+3d_render/layer_3="units"
+3d_physics/layer_3="units"
+3d_render/layer_4="gui"
+3d_physics/layer_4="gui"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

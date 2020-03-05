@@ -31,6 +31,11 @@ func _process(delta):
 	if (Input.is_action_just_pressed("ui_cancel")):
 		OS.window_fullscreen = !OS.window_fullscreen;
 
+	if (Input.is_key_pressed(KEY_F1)):
+		var myid = String(Network.host.get_unique_id());
+		$Camera.transform.origin.x = $Players.get_node(myid).transform.origin.x;
+		$Camera.transform.origin.z = $Players.get_node(myid).transform.origin.z + 6;
+
 	if ($Camera.fov != cam_fov):
 		cam_fov = clamp(cam_fov, CAM_FOV_MIN, CAM_FOV_MAX);
 		$Camera.fov = lerp($Camera.fov, cam_fov, cam_fov_lerp);
@@ -45,15 +50,14 @@ func _input(event):
 			var ray_end = ray_start + $Camera.project_ray_normal(mouse) * RAY_LENGTH;
 			var target = get_world().direct_space_state.intersect_ray(ray_start, ray_end, [], 1);
 
-
 			if (target):
 				if (Network.connected):
+					var myid = Network.host.get_unique_id();
+					get_node("/root/World/Players/" + String(myid)).target = target.position;
+					$Target.transform.origin = target.position;
+					$Target/AnimationPlayer.play("Anim", 0, 2);
+					$Target/AnimationPlayer.seek(0, true);
 					return rpc_id(1, "human_move", target.position);
-				$Human.move_to(target.position);
-				$Target.show();
-				$Target.transform.origin = target.position;
-				$Target/AnimationPlayer.play("Anim", 0, 2);
-				$Target/AnimationPlayer.seek(0, true);
 
 		if (event.button_index == BUTTON_WHEEL_DOWN):
 			cam_fov += 1;

@@ -37,7 +37,7 @@ puppet func game_start(_players):
 	emit_signal("menu_msg", "Game started\nLoading world...");
 	get_tree().change_scene("res://Maps/World.tscn");
 
-puppet func player_online(count):
+puppet func player_connect(count):
 	emit_signal("menu_msg", str("Players on server: ", count));
 
 puppet func player_disconnect(id):

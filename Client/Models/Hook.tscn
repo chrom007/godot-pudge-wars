@@ -4,30 +4,31 @@
 [ext_resource path="res://Models/Hook/Hook.gd" type="Script" id=2]
 [ext_resource path="res://Models/Hook/chain.png" type="Texture" id=3]
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.705454, 1.60752, 0.201053 )
 
 [node name="Hook" type="Spatial"]
 script = ExtResource( 2 )
 
-[node name="HookMesh" type="MeshInstance" parent="."]
-transform = Transform( -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, 0, 0, 0.2, 0.35, 0.146, 0 )
+[node name="Body" type="MeshInstance" parent="."]
+transform = Transform( -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, 0, 0, 0.2, 0.35, 0.14, 0 )
 layers = 8
 mesh = ExtResource( 1 )
 material/0 = null
 
-[node name="StaticBody" type="StaticBody" parent="HookMesh"]
+[node name="StaticBody" type="StaticBody" parent="Body"]
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape" type="CollisionShape" parent="HookMesh/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Body/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.569395, -0.211867, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="TimerStart" type="Timer" parent="."]
 
 [node name="Chains" type="Sprite3D" parent="."]
 transform = Transform( 0.05, 0, 0, 0, -2.18557e-09, -0.05, 0, 0.05, -2.18557e-09, -0.105604, -0.0054082, -0.0356269 )
+visible = false
 layers = 8
 centered = false
 shaded = true

@@ -4,7 +4,7 @@ signal player_disconnect;
 
 # 0.0166 - 60 ticks
 # 0.0333 - 30 ticks
-const tickrate = 0.0166;
+const tickrate = 0.0333;
 const MAX_PLAYERS = 10;
 const PORT = 6464;
 
@@ -24,7 +24,7 @@ func _ready():
 func _player_connected(id):
 	print("Player ", id, " connected");
 	rpc_id(id, "hello", game_started);
-	rpc("player_online", players.size());
+	rpc("player_connect", players.size() + 1);
 
 func _player_disconnected(id):
 	if (players.has(id)):

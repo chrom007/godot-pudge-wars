@@ -12,7 +12,6 @@ func _ready():
 remote func human_move(_position):
 	var id = get_tree().get_rpc_sender_id();
 	get_node("/root/World/Players/" + String(id)).move_to(_position);
-	print("Move {", id, "} to: ", _position);
 
 func human_remove(id):
 	get_node("/root/World/Players/" + String(id)).queue_free();
