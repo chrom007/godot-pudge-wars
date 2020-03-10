@@ -12,7 +12,7 @@ var cam_inter = Vector3(0, 0, 0);
 var cam_inter_lerp = 0;
 
 func human_remove(id):
-	get_node("/root/World/Players/" + String(id)).queue_free();
+	get_node("/root/World/Players/" + str(id)).queue_free();
 
 func _ready():
 	#OS.window_fullscreen = false;
@@ -21,8 +21,8 @@ func _ready():
 
 	for id in Network.players:
 		var player : KinematicBody = load("res://Models/Human.tscn").instance();
-		player.set_network_master(1);
-		player.set_name(String(id));
+		#player.set_network_master(1);
+		player.set_name(str(id));
 		player.set_nick(Network.players[id]);
 		$Players.add_child(player);
 
@@ -34,7 +34,7 @@ func _process(delta):
 		OS.window_fullscreen = !OS.window_fullscreen;
 
 	if (Input.is_key_pressed(KEY_F1)):
-		var myid = String(Network.host.get_unique_id());
+		var myid = str(Network.host.get_unique_id());
 		$Camera.transform.origin.x = $Players.get_node(myid).transform.origin.x;
 		$Camera.transform.origin.z = $Players.get_node(myid).transform.origin.z + 6;
 

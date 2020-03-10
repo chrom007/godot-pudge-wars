@@ -2,6 +2,7 @@ extends KinematicBody
 
 var velocity = Vector3();
 var target = Vector3();
+var is_local = false;
 
 var nick_size = Vector2(160, 40);
 var nick_texture = null;
@@ -9,8 +10,8 @@ var nick = "";
 
 func _ready():
 	#Network.connect()
+	is_local = (int(name) == get_tree().get_network_unique_id());
 	draw_nick(nick);
-	pass;
 
 func _physics_process(delta):
 	if (velocity != Vector3.ZERO):
@@ -18,7 +19,7 @@ func _physics_process(delta):
 		if ($AnimationPlayer.current_animation != "Run"):
 			animation_play("run");
 
-	if (Input.is_key_pressed(KEY_SPACE)):
+	if (Input.is_key_pressed(KEY_SPACE) and is_local):
 		rpc_id(1, "hook");
 
 func hook_forward():
@@ -31,6 +32,7 @@ func hook_back():
 	$Skeleton/Hand/HandHook.show();
 
 puppet func hook_throw_start():
+	#if (name == str(id)):
 	animation_play("hook");
 	$Hook.start_move();
 

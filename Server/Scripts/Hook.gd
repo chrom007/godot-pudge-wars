@@ -44,4 +44,3 @@ func _on_Body_entered(body):
 		speed = -HOOK_SPEED;
 		rpc("hook_cameback", $Body.transform.origin.x);
 		stick = get_node("/root/World/Players/" + body.name);
-		print("Hoooook it");
