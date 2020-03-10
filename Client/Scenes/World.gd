@@ -17,11 +17,13 @@ func human_remove(id):
 func _ready():
 	#OS.window_fullscreen = false;
 	Network.connect("player_disconnect", self, "human_remove");
+	Network.ping();
 
 	for id in Network.players:
 		var player : KinematicBody = load("res://Models/Human.tscn").instance();
 		player.set_network_master(1);
 		player.set_name(String(id));
+		player.set_nick(Network.players[id]);
 		$Players.add_child(player);
 
 

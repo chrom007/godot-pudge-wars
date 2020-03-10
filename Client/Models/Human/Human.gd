@@ -2,10 +2,14 @@ extends KinematicBody
 
 var velocity = Vector3();
 var target = Vector3();
-#var hook_throw = false;
+
+var nick_size = Vector2(160, 40);
+var nick_texture = null;
+var nick = "";
 
 func _ready():
 	#Network.connect()
+	draw_nick(nick);
 	pass;
 
 func _physics_process(delta):
@@ -37,7 +41,7 @@ puppet func set_target(_target):
 	target = _target;
 
 puppet func update_position(_transform, _rotation, _velocity, force = false):
-	if ((transform.origin.distance_to(target) * 0.85 > _transform.distance_to(target)) or force):
+	if ((transform.origin.distance_to(_transform) > 0.1) or force):
 		transform.origin = _transform;
 	rotation_degrees = _rotation;
 	velocity = _velocity;
@@ -51,4 +55,33 @@ func animation_play(anim_name):
 		"hook":
 			$AnimationPlayer.play("Hook", 0.15, 1);
 
+func set_nick(_nick):
+	nick = _nick;
 
+func draw_nick(_nick):
+	var vport = Viewport.new();
+	var font : DynamicFont = load("res://Assets/opensans.tres");
+
+	vport.transparent_bg = true;
+	vport.size = nick_size
+	vport.render_target_update_mode = Viewport.UPDATE_ALWAYS;
+	add_child(vport)
+
+	var label : Label = Label.new();
+	label.text = _nick;
+	label.valign = Label.VALIGN_CENTER;
+	label.align = Label.ALIGN_CENTER;
+	label.rect_size = nick_size;
+	label.add_color_override("font_color", Color(10, 10, 10));
+	label.add_font_override("font", font);
+	vport.add_child(label);
+	yield(get_tree().create_timer(0.1), "timeout");
+
+	var image = vport.get_texture().get_data();
+	image.flip_y();
+	#image.save_png("res://test.png");
+	nick_texture = ImageTexture.new();
+	nick_texture.create_from_image(image);
+	$Nick.texture = nick_texture;
+
+	vport.queue_free();

@@ -4,7 +4,7 @@
 [ext_resource path="res://Objects/Hook.tscn" type="PackedScene" id=2]
 
 [sub_resource type="CylinderShape" id=1]
-radius = 0.4
+radius = 0.45
 height = 1.2
 
 [node name="Human" type="KinematicBody" groups=[
@@ -20,3 +20,4 @@ shape = SubResource( 1 )
 
 [node name="Hook" parent="." instance=ExtResource( 2 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0.09, 0.8, -0.4 )
+visible = false

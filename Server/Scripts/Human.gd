@@ -3,7 +3,7 @@ extends KinematicBody
 var delta_tick = 0;
 
 const MAX_SPEED = 100;
-const ROT_SPEED = 0.1;
+const ROT_SPEED = 0.15;
 const HOOK_MAX_SPEED = 5;
 
 var target = Vector3();

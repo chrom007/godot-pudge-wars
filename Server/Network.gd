@@ -23,7 +23,7 @@ func _ready():
 
 func _player_connected(id):
 	print("Player ", id, " connected");
-	rpc_id(id, "hello", game_started);
+	rpc_id(id, "hello", game_started, players);
 	rpc("player_connect", players.size() + 1);
 
 func _player_disconnected(id):
@@ -34,18 +34,29 @@ func _player_disconnected(id):
 			rpc("player_disconnect", id);
 			emit_signal("player_disconnect", id);
 
+	if (players.size() == 0):
+		players.clear();
+		game_started = false;
+		get_tree().change_scene("res://Lobby.tscn");
+		print("Game ended");
+
 remote func join_game(nick):
+	if (!game_started):
+		var id = get_tree().get_rpc_sender_id();
+		players[id] = nick;
+		rpc("player_join", id, nick);
+
+		if (players.size() >= 1):
+			game_started = true;
+			print("Game started");
+			rpc("game_start", players);
+			get_tree().change_scene("res://World.tscn");
+
+
+remote func ping():
 	var id = get_tree().get_rpc_sender_id();
-	players[id] = nick;
-
-	if (players.size() >= 2):
-		game_started = true;
-		print("Game started");
-		rpc("game_start", players);
-		get_tree().change_scene("res://World.tscn");
-
-
-
+	rpc_unreliable_id(id, "pong");
+	#print("Ping by ", id);
 
 
 

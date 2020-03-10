@@ -34,7 +34,7 @@ bind/9/bone = 9
 bind/9/pose = Transform( 1.20985e-06, 1.49083e-08, 1, 0.122448, -0.992475, -1.51052e-07, 0.992475, 0.122448, -1.20466e-06, -1.31489e-06, 3.32432, -1.67126 )
 
 [sub_resource type="CylinderShape" id=2]
-radius = 0.204996
+radius = 0.45
 height = 1.2
 
 [node name="Human" type="KinematicBody"]
@@ -117,6 +117,7 @@ anims/Run = ExtResource( 3 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
 shape = SubResource( 2 )
+disabled = true
 
 [node name="Chains" type="Sprite3D" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.683996, 0 )
@@ -134,3 +135,7 @@ visible = false
 
 [node name="Target" parent="." instance=ExtResource( 8 )]
 visible = false
+
+[node name="Nick" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0 )
+billboard = 1
