@@ -50,9 +50,23 @@ remote func hook():
 		move = false;
 		velocity = Vector3();
 		update_position();
-		rpc("hook_throw_start");
+		rpc("hook_moving_start");
 		$Hook.start_move();
 		$Hook.show();
+
+remote func stop():
+	if (hook_throw and !$Hook.move):
+		$Hook.stop_move();
+		$Hook.hide();
+		hook_throw = false;
+		rpc("hook_moving_stop");
+
+	if (move):
+		move = false;
+		velocity = Vector3();
+		target = transform.origin;
+		update_position(true);
+		rpc("anim", "idle");
 
 func hook_back():
 	$Hook.hide();

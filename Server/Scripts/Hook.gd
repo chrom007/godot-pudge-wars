@@ -1,7 +1,7 @@
 extends Spatial
 
-const HOOK_SPEED = 5;
-const RANGE_MAX = 5;
+const HOOK_SPEED = 7;
+const RANGE_MAX = 6;
 
 var speed = 0;
 var move = false;
@@ -31,6 +31,9 @@ func start_move():
 	$TimerStart.one_shot = true;
 	$TimerStart.wait_time = 0.5;
 	$TimerStart.start(0.5);
+
+func stop_move():
+	$TimerStart.stop();
 
 #func back_move():
 #	speed = -HOOK_SPEED;

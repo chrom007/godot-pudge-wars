@@ -19,22 +19,27 @@ func _physics_process(delta):
 		if ($AnimationPlayer.current_animation != "Run"):
 			animation_play("run");
 
-	if (Input.is_key_pressed(KEY_SPACE) and is_local):
+	if (Input.is_action_just_released("hook") and is_local):
 		rpc_id(1, "hook");
+
+	if (Input.is_action_just_released("stop")):
+		rpc_id(1, "stop");
 
 func hook_forward():
 	$Hook.show();
 	$Skeleton/Hand/HandHook.hide();
 
 func hook_back():
-	#hook_throw = false;
 	$Hook.hide();
 	$Skeleton/Hand/HandHook.show();
 
-puppet func hook_throw_start():
-	#if (name == str(id)):
+puppet func hook_moving_start():
 	animation_play("hook");
 	$Hook.start_move();
+
+puppet func hook_moving_stop():
+	animation_play("idle");
+	$Hook.stop_move(true);
 
 puppet func anim(anim_name):
 	animation_play(anim_name);
@@ -56,6 +61,12 @@ func animation_play(anim_name):
 			$AnimationPlayer.play("Run", 0.15, 2);
 		"hook":
 			$AnimationPlayer.play("Hook", 0.15, 1);
+
+
+
+
+
+
 
 func set_nick(_nick):
 	nick = _nick;

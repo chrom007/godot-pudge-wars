@@ -7,10 +7,10 @@ func _ready():
 	redraw_players(Network.players);
 
 func redraw_ping(ping):
-	$Ping.text = "Ping: " + str(ping);
+	$Control/Ping.text = "Ping: " + str(ping);
 
 func redraw_players(players):
-	$Players.clear();
-	$Online.text = "Online: " + str(players.size());
+	$Control/Players.clear();
+	$Control/Online.text = "Online: " + str(players.size());
 	for id in players:
-		$Players.add_item(players[id]);
+		$Control/Players.add_item(players[id]);
