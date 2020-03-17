@@ -23,6 +23,8 @@ func _ready():
 		player.set_nick(Network.players[id]);
 		$Players.add_child(player);
 
+	Input.action_press("focus_hero");
+
 
 func _process(delta):
 	move_camera(delta);
@@ -30,7 +32,7 @@ func _process(delta):
 	if (Input.is_action_just_pressed("ui_cancel")):
 		OS.window_fullscreen = !OS.window_fullscreen;
 
-	if (Input.is_key_pressed(KEY_F1)):
+	if (Input.is_action_pressed("focus_hero")):
 		var myid = str(Network.host.get_unique_id());
 		$Camera.transform.origin.x = $Players.get_node(myid).transform.origin.x;
 		$Camera.transform.origin.z = $Players.get_node(myid).transform.origin.z + 6;
