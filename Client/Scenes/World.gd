@@ -11,9 +11,6 @@ var cam_fov = 70;
 var cam_inter = Vector3(0, 0, 0);
 var cam_inter_lerp = 0;
 
-func human_remove(id):
-	get_node("/root/World/Players/" + str(id)).queue_free();
-
 func _ready():
 	#OS.window_fullscreen = false;
 	Network.connect("player_disconnect", self, "human_remove");
@@ -67,6 +64,10 @@ func _input(event):
 		if (event.button_index == BUTTON_WHEEL_UP):
 			cam_fov -= 1;
 			cam_fov_lerp = 0;
+
+
+func human_remove(id):
+	get_node("/root/World/Players/" + str(id)).queue_free();
 
 
 func move_camera(delta):

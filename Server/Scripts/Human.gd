@@ -11,9 +11,11 @@ var target = Vector3();
 var velocity = Vector3();
 var move = false;
 var hook_throw = false;
+var dead = false;
+var hp = 4;
 
 func move_to(_target):
-	if (!hook_throw):
+	if (!hook_throw and !dead):
 		move = true;
 		target = _target;
 		rpc("set_target", target);
@@ -26,7 +28,7 @@ func _physics_process(delta):
 
 		if (move): update_position();
 
-	if (move):
+	if (move and !dead):
 		var target_trans = transform.looking_at(target, Vector3.UP);
 		var quat = Quat(transform.basis).slerp(target_trans.basis, ROT_SPEED);
 		transform = Transform(quat, transform.origin);
@@ -45,7 +47,7 @@ func _physics_process(delta):
 
 
 remote func hook():
-	if (!hook_throw):
+	if (!hook_throw and !dead):
 		hook_throw = true;
 		move = false;
 		velocity = Vector3();
@@ -55,6 +57,9 @@ remote func hook():
 		$Hook.show();
 
 remote func stop():
+	if (hp > 0):
+		hook_grab();
+
 	if (hook_throw and !$Hook.move):
 		$Hook.stop_move();
 		$Hook.hide();
@@ -72,6 +77,16 @@ func hook_back():
 	$Hook.hide();
 	hook_throw = false;
 	rpc("anim", "idle");
+
+func hook_grab():
+	hp -= 1;
+	rpc("change_hp", hp);
+
+	if (hp <= 0):
+		dead = true;
+		rpc("die");
+		update_position(true);
+
 
 
 func update_position(force = false):

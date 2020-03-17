@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Models/Human/Idle.anim" type="Animation" id=1]
 [ext_resource path="res://Models/Human/Hook.anim" type="Animation" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Models/Hook/chain.png" type="Texture" id=6]
 [ext_resource path="res://Models/Hook.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Models/Human/Target.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Models/Human/Dead.anim" type="Animation" id=9]
+[ext_resource path="res://Models/Human/HumanHUD.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Skin" id=1]
 resource_name = "Skin"
@@ -43,7 +45,7 @@ collision_mask = 4
 script = ExtResource( 5 )
 
 [node name="Skeleton" type="Skeleton" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.54911, 0 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.6, 0 )
 bones/0/name = "bone"
 bones/0/parent = -1
 bones/0/rest = Transform( 0.556647, -0.0257472, -0.83035, 0.0391462, 0.999222, -0.00474082, 0.829826, -0.0298661, 0.557222, 1.3099e-07, -0.0712444, 5.13409e-08 )
@@ -56,7 +58,7 @@ bones/1/enabled = true
 bones/1/bound_children = [  ]
 bones/2/name = "bone_9"
 bones/2/parent = 1
-bones/2/rest = Transform( 0.450476, 0.793854, -0.408493, 0.118319, 0.400427, 0.908658, 0.884913, -0.457661, 0.0864549, 8.02513e-09, 1.85037, -4.38004e-08 )
+bones/2/rest = Transform( 0.975813, -0.200677, -0.0867106, 0.165681, 0.420124, 0.892214, -0.142617, -0.885, 0.443211, 8.02513e-09, 1.85037, -4.38004e-08 )
 bones/2/enabled = true
 bones/2/bound_children = [  ]
 bones/3/name = "bone_2"
@@ -66,7 +68,7 @@ bones/3/enabled = true
 bones/3/bound_children = [  ]
 bones/4/name = "bone_8"
 bones/4/parent = 3
-bones/4/rest = Transform( 0.53079, 0.831695, -0.16293, -0.264409, 0.34516, 0.900529, 0.805202, -0.434912, 0.403115, -7.64416e-09, 2.07903, 1.92931e-07 )
+bones/4/rest = Transform( 0.973282, 0.161413, 0.163306, -0.213877, 0.378525, 0.900542, 0.0835437, -0.911408, 0.402934, -7.64416e-09, 2.07903, 1.92931e-07 )
 bones/4/enabled = true
 bones/4/bound_children = [ NodePath("Hand") ]
 bones/5/name = "bone_3"
@@ -81,7 +83,7 @@ bones/6/enabled = true
 bones/6/bound_children = [  ]
 bones/7/name = "bone_5"
 bones/7/parent = 6
-bones/7/rest = Transform( 0.755295, -0.647568, 0.10092, 0.599778, 0.74504, 0.29186, -0.264189, -0.159911, 0.951122, 3.81917e-14, 2.61575, 2.23518e-08 )
+bones/7/rest = Transform( 1, 7.60498e-08, 3.49503e-07, -1.63441e-07, 0.966311, 0.257376, -3.18155e-07, -0.257376, 0.966311, 3.81917e-14, 2.61575, 2.23518e-08 )
 bones/7/enabled = true
 bones/7/bound_children = [  ]
 bones/8/name = "bone_6"
@@ -91,25 +93,26 @@ bones/8/enabled = true
 bones/8/bound_children = [  ]
 bones/9/name = "bone_7"
 bones/9/parent = 8
-bones/9/rest = Transform( 0.755121, -0.650652, 0.0802748, 0.581321, 0.721151, 0.376839, -0.303081, -0.237893, 0.922794, 1.59872e-14, 2.70734, 1.1176e-08 )
+bones/9/rest = Transform( 1, -1.90521e-07, -7.9441e-07, 4.56695e-07, 0.936656, 0.350251, 6.77358e-07, -0.350251, 0.936656, 1.59872e-14, 2.70734, 1.1176e-08 )
 bones/9/enabled = true
 bones/9/bound_children = [  ]
 
 [node name="HumanMesh" type="MeshInstance" parent="Skeleton"]
-layers = 4
 mesh = ExtResource( 4 )
 skin = SubResource( 1 )
 material/0 = null
 
 [node name="Hand" type="BoneAttachment" parent="Skeleton"]
-transform = Transform( -0.20752, 0.313938, 0.926487, 0.821704, -0.457959, 0.339228, 0.53079, 0.831695, -0.16293, 2.00693, 2.38461, -0.0777451 )
+transform = Transform( -0.207519, 0.313938, 0.926488, 0.0982793, -0.935621, 0.339047, 0.973282, 0.161413, 0.163306, 2.00693, 2.38461, -0.0777451 )
 bone_name = "bone_8"
 
 [node name="HandHook" parent="Skeleton/Hand" instance=ExtResource( 7 )]
 transform = Transform( -9.79518, 1.01038, -1.74167, -1.39944, -9.63526, 2.28084, -1.4477, 2.47786, 9.57934, -0.557818, 3.02064, 0.0475078 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Skeleton")
 autoplay = "Idle"
+anims/Dead = ExtResource( 9 )
 anims/Hook = ExtResource( 2 )
 anims/Idle = ExtResource( 1 )
 anims/Run = ExtResource( 3 )
@@ -136,6 +139,8 @@ visible = false
 [node name="Target" parent="." instance=ExtResource( 8 )]
 visible = false
 
-[node name="Nick" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0 )
-billboard = 1
+[node name="HUD_rotator" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0 )
+
+[node name="HumanHUD" parent="HUD_rotator" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.445067, 0 )

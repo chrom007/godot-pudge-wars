@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/opensans.tres" type="DynamicFont" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.152941, 0.682353, 0.376471, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0352941, 0.121569, 0.207843, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0509804, 0.145098, 0.239216, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0352941, 0.121569, 0.207843, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("Viewport")
+
+[node name="HumanHUD" type="Spatial"]
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 200, 90 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Nick" type="Label" parent="Viewport"]
+margin_top = -5.0
+margin_right = 200.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "NICKNAME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bar" type="ProgressBar" parent="Viewport"]
+margin_top = 48.0
+margin_right = 200.0
+margin_bottom = 88.0
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+max_value = 4.0
+step = 1.0
+value = 4.0
+rounded = true
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Renderer" type="Sprite3D" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+texture = SubResource( 1 )

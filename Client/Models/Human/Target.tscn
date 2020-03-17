@@ -3,7 +3,7 @@
 [sub_resource type="CylinderMesh" id=1]
 radial_segments = 32
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=2]
 flags_transparent = true
 albedo_color = Color( 0, 0.6, 1, 0.705882 )
 
@@ -40,7 +40,7 @@ tracks/1/keys = {
 transform = Transform( 0.5, 0, 0, 0, 0.025, 0, 0, 0, 0.5, 0, 0, 0 )
 layers = 8
 mesh = SubResource( 1 )
-material/0 = SubResource( 4 )
+material/0 = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Anim = SubResource( 3 )

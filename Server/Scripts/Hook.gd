@@ -43,7 +43,8 @@ func _on_TimerStart_timeout():
 	speed = HOOK_SPEED;
 
 func _on_Body_entered(body):
-	if (move and body.is_in_group("humans")):
+	if (move and body.is_in_group("humans") and !body.is_a_parent_of(self)):
 		speed = -HOOK_SPEED;
 		rpc("hook_cameback", $Body.transform.origin.x);
+		body.hook_grab();
 		stick = get_node("/root/World/Players/" + body.name);
