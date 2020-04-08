@@ -1,7 +1,7 @@
 extends Spatial
 
-const HOOK_SPEED = 7;
-const RANGE_MAX = 6;
+const HOOK_SPEED = 9;
+const RANGE_MAX = 7;
 
 var speed = 0;
 var move = false;

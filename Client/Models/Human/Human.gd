@@ -27,6 +27,10 @@ func _physics_process(delta):
 
 	if (Input.is_action_just_released("hook") and is_local):
 		rpc_id(1, "hook");
+		$Line.hide();
+
+	if (Input.is_action_just_pressed("hook") and is_local and !dead):
+		$Line.show();
 
 	if (Input.is_action_just_released("stop") and is_local):
 		rpc_id(1, "stop");
@@ -106,29 +110,3 @@ func set_nick(_nick):
 func draw_nick(_nick):
 	$HUD_rotator/HumanHUD/Viewport/Nick.text = _nick;
 	$HUD_rotator/HumanHUD/Viewport/Nick.add_color_override("font_color", Color(10, 10, 10));
-#	var vport = Viewport.new();
-#	var font : DynamicFont = load("res://Assets/opensans.tres");
-#
-#	vport.transparent_bg = true;
-#	vport.size = nick_size
-#	vport.render_target_update_mode = Viewport.UPDATE_ALWAYS;
-#	add_child(vport)
-#
-#	var label : Label = Label.new();
-#	label.text = _nick;
-#	label.valign = Label.VALIGN_CENTER;
-#	label.align = Label.ALIGN_CENTER;
-#	label.rect_size = nick_size;
-#	label.add_color_override("font_color", Color(10, 10, 10));
-#	label.add_font_override("font", font);
-#	vport.add_child(label);
-#	yield(get_tree().create_timer(0.1), "timeout");
-#
-#	var image = vport.get_texture().get_data();
-#	image.flip_y();
-#	#image.save_png("res://test.png");
-#	nick_texture = ImageTexture.new();
-#	nick_texture.create_from_image(image);
-#	$HUD/Nick.texture = nick_texture;
-#
-#	vport.queue_free();

@@ -57,8 +57,9 @@ remote func hook():
 		$Hook.show();
 
 remote func stop():
-	if (hp > 0):
-		hook_grab();
+#	for debug only
+#	if (hp > 0):
+#		hook_grab();
 
 	if (hook_throw and !$Hook.move):
 		$Hook.stop_move();

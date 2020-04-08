@@ -13,7 +13,7 @@ var cam_inter_lerp = 0;
 
 func _ready():
 	#OS.window_fullscreen = false;
-	Network.connect("player_disconnect", self, "human_remove");
+	Network.connect("change_players", self, "human_remove");
 	Network.ping();
 
 	for id in Network.players:
@@ -68,8 +68,9 @@ func _input(event):
 			cam_fov_lerp = 0;
 
 
-func human_remove(id):
-	get_node("/root/World/Players/" + str(id)).queue_free();
+func human_remove(players, id, nick, join):
+	if (!join):
+		get_node("/root/World/Players/" + str(id)).queue_free();
 
 
 func move_camera(delta):

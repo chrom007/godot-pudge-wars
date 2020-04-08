@@ -1,7 +1,7 @@
 extends Spatial
 
-const HOOK_SPEED = 7;
-const RANGE_MAX = 6;
+const HOOK_SPEED = 9;
+const RANGE_MAX = 7;
 
 var speed = 0;
 var move = false;
@@ -43,8 +43,10 @@ func _on_TimerStart_timeout():
 	speed = HOOK_SPEED;
 
 func _on_Body_entered(body):
-	if (move and body.is_in_group("humans") and !body.is_a_parent_of(self)):
+	if (move and body.has_method("hook_grab") and !body.is_a_parent_of(self)):
+		if (body.is_in_group("humans") and body.dead):
+			return false;
 		speed = -HOOK_SPEED;
-		rpc("hook_cameback", $Body.transform.origin.x);
 		body.hook_grab();
+		rpc("hook_cameback", $Body.transform.origin.x);
 		stick = get_node("/root/World/Players/" + body.name);

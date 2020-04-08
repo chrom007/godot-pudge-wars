@@ -46,7 +46,7 @@ remote func join_game(nick):
 		players[id] = nick;
 		rpc("player_join", id, nick);
 
-		if (players.size() >= 1):
+		if (players.size() >= 2):
 			game_started = true;
 			print("Game started");
 			rpc("game_start", players);
